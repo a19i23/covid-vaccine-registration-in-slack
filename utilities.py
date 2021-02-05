@@ -1,5 +1,10 @@
 import time
+import os
 from selenium import webdriver
+from dotenv import load_dotenv
+
+load_dotenv()
+chromeDriverPath = os.environ.get("chrome-driver")
 
 options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
@@ -7,7 +12,7 @@ options.add_argument('--incognito')
 options.add_argument('--headless')
 
 def render_page(url):
-    driver = webdriver.Chrome(executable_path=r'/Users/villaa/Downloads/chromedriver', options=options)
+    driver = webdriver.Chrome(executable_path=chromeDriverPath, options=options)
     driver.get(url)
     # time.sleep(3)
     driver.find_element_by_link_text("Make an appointment to be vaccinated by LAC DPH and partners").click()
