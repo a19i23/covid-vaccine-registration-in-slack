@@ -8,6 +8,9 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+# Date they are scheduling through
+targetDate = "2-14-21"
+
 slackToken = os.environ.get("slack-api-token")
 client = slack.WebClient(token=slackToken)
 
@@ -28,7 +31,7 @@ for tag in dphTags[0]:
     company = tag.find("h6", class_="card-header").find("span", {"title" : re.compile(r".*")}).text
 
     availableDates = tag.find("div", class_="card-body").find("div")
-    appointmentsAvailable = 'Currently booking up to 2-14-21' in availableDates.text
+    appointmentsAvailable = f'Currently booking up to {targetDate}' in availableDates.text
     
     if appointmentsAvailable:
         availableDates = availableDates.contents[0]
@@ -71,7 +74,7 @@ for tag in dphTags[0]:
 print(availableOptions)
 
 if not availableOptions:
-     client.chat_postMessage(channel='covid-registration-info', text='No appointments available')
+     client.chat_postMessage(channel='covid-registration-info', text=f'No appointments available through {targetDate}')
 else:
     registrationMessage = SlackMessage()
 
