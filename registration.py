@@ -13,7 +13,7 @@ client = slack.WebClient(token=slackToken)
 
 URL = "http://publichealth.lacounty.gov/acd/ncorona2019/vaccine/hcwsignup/pods/"
 r = render_page(URL)
-soup = BeautifulSoup(r, "lxml")
+soup = BeautifulSoup(r, "html5lib")
 
 # array that will contain available locations
 availableOptions = []
